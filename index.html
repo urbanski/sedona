@@ -1,0 +1,91 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Sedona by urbanski</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Sedona</h1>
+        <p>An application firewall for Redis</p>
+        <p class="view"><a href="https://github.com/urbanski/sedona">View the Project on GitHub <small>urbanski/sedona</small></a></p>
+        <ul>
+          <li><a href="https://github.com/urbanski/sedona/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/urbanski/sedona/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/urbanski/sedona">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>
+<a name="sedona" class="anchor" href="#sedona"><span class="octicon octicon-link"></span></a>Sedona</h1>
+
+<p>Sedona is an application firewall for <a href="http://redis.io">Redis</a>. Sedona augments Redis installations by adding support for <em>authentication</em>, <em>authorization</em> and <em>encryption</em>.</p>
+
+<p>The goals of the Sedona project are to:</p>
+
+<ul>
+<li>Enhance the security of Redis installations by supporting encryption, authentication, and authorization for Redis deployments.</li>
+<li>Ensure 100% backwards compatbility with the existing Redis 2.0 protocol and client libraries.</li>
+</ul><h3>
+<a name="why-does-redis-need-an-application-firewall" class="anchor" href="#why-does-redis-need-an-application-firewall"><span class="octicon octicon-link"></span></a>Why does Redis need an application firewall?</h3>
+
+<p>Redis is designed to provide scalable, reliable, high-performance storage services to trusted clients. The <a href="http://redis.io/topics/security">Redis security model</a> states that "Redis is designed to be accessed by trusted clients inside trusted environments." Traditional security features like authentication, authorization and encryption are unimplemented in the Redis core with a few notable exceptions.</p>
+
+<p>There are instances where it would be beneficial for a remote client to be able to securely access a Redis installation or have limited access to specific commands within an installation. Sedona provides this functionality in the form of an application firewall. With Sedona, traditional, trusted Redis clients can continue to directly access the Redis server. However, if a client is untrusted or requires limited access to an installation then Sedona can limit the authorization of that client to the server.</p>
+
+<h2>
+<a name="features" class="anchor" href="#features"><span class="octicon octicon-link"></span></a>Features</h2>
+
+<h3>
+<a name="authentication" class="anchor" href="#authentication"><span class="octicon octicon-link"></span></a>Authentication</h3>
+
+<p>Redis natively supports an authentication command (<a href="http://redis.io/commands/auth">AUTH</a>) that allows remote users to authenticate with a server. This command does not support a username and password and does not differentiate between users (a single password is supported for the entire server). Sedona improves upon the <a href="http://redis.io/commands/auth">AUTH</a> command by supporting distinct accounts (username and password combinations) that are in turn tied to account-specific access control lists (ACLs). These ACLs are used to authorize specific actions within the Redis installation.</p>
+
+<p>Sedona provides this functionality by overriding the AUTH command. This functionality can be disabled if you prefer to use the Redis server for authentication, however, all connections will have the default ACL applied to them.</p>
+
+<h3>
+<a name="authorization" class="anchor" href="#authorization"><span class="octicon octicon-link"></span></a>Authorization</h3>
+
+<p>Sedona can authorize clients using role-based access control lists. These lists are applied on a per-user basis and can be used to explicitly authorize specific types of commands. Authorization is done on a per-command and per-key basis. Individual commands can be authorized or rejected, additionally, access to specific keys from specific commands can be applied for more granular authorization controls.</p>
+
+<h2>
+<a name="encryption" class="anchor" href="#encryption"><span class="octicon octicon-link"></span></a>Encryption</h2>
+
+<p>I am currently working to add SSL support to Sedona. A Redis CLI with SSL support, sedona-cli, will be included in the distribution.</p>
+
+<h2>
+<a name="project-status" class="anchor" href="#project-status"><span class="octicon octicon-link"></span></a>Project Status</h2>
+
+<p>This project is a work in progress! Please help contribute by testing Sedona in your environment, or sending us a pull request!</p>
+
+<h2>
+<a name="system-requirements" class="anchor" href="#system-requirements"><span class="octicon octicon-link"></span></a>System Requirements</h2>
+
+<ul>
+<li>
+<a href="http://www.python.org">python</a> (tested on version 2.7)</li>
+<li><a href="https://pypi.python.org/pypi/Twisted">python-twisted</a></li>
+<li><a href="http://www.mindrot.org/projects/py-bcrypt/">python-bcrypt</a></li>
+<li><a href="https://pypi.python.org/pypi/pyOpenSSL">pyOpenSSL</a></li>
+</ul>
+      </section>
+    </div>
+    <footer>
+      <p>Project maintained by <a href="https://github.com/urbanski">urbanski</a></p>
+      <p>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></p>
+    </footer>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+    
+  </body>
+</html>
