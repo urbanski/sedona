@@ -1,5 +1,7 @@
 #Sedona
 
+[![Build Status](https://travis-ci.org/urbanski/sedona.png?branch=master)](https://travis-ci.org/urbanski/sedona)
+
 Sedona is an application firewall for [Redis](http://redis.io). Sedona augments Redis installations by adding support for *authentication*, *authorization* and *encryption*.
 
 The goals of the Sedona project are to:
