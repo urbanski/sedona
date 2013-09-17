@@ -7,7 +7,7 @@ Sedona is an application firewall for [Redis](http://redis.io). Sedona augments 
 The goals of the Sedona project are to:
 
 * Enhance the security of Redis installations by supporting encryption, authentication, and authorization for Redis deployments.
-* Ensure 100% backwards compatbility with the existing Redis 2.0 protocol and client libraries.
+* Ensure backwards compatbility with the existing Redis 2.0 protocol and client libraries.
 
 ###Why does Redis need an application firewall?
 Redis is designed to provide scalable, reliable, high-performance storage services to trusted clients. The [Redis security model](http://redis.io/topics/security) states that "Redis is designed to be accessed by trusted clients inside trusted environments." Traditional security features like authentication, authorization and encryption are unimplemented in the Redis core with a few notable exceptions.
