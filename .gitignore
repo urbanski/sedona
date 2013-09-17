@@ -33,3 +33,14 @@ nosetests.xml
 .mr.developer.cfg
 .project
 .pydevproject
+
+#Annoying Macintosh files
+.DS_Store
+.swp
+
+#Pycharm
+.idea
+
+#redis and access log related
+*.log
+*.rdb
