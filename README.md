@@ -14,6 +14,8 @@ Redis is designed to provide scalable, reliable, high-performance storage servic
 
 There are instances where it would be beneficial for a remote client to be able to securely access a Redis installation or have limited access to specific commands within an installation. Sedona provides this functionality in the form of an application firewall. With Sedona, traditional, trusted Redis clients can continue to directly access the Redis server. However, if a client is untrusted or requires limited access to an installation then Sedona can limit the authorization of that client to the server.
 
+## [Ready to get started? Install Sedona](https://github.com/urbanski/sedona/INSTALL.md)
+
 ##Features
 
 ###Authentication
