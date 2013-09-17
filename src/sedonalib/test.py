@@ -115,3 +115,22 @@ def test_SedonaACL_check_acl():
 	assert_equal(catacl.command, 'GET')
 	assert_equal(catacl.action, SedonaACL.ACTION_REJECT)
 	assert_equal(catacl.key, 'cat')
+
+# RedisResponse
+# RedisStatusRepy
+# RedisErrorReply
+
+def test_RedisResponse():
+	rr = RedisResponse("Invalid Request")
+	assert_equal(rr.response_text, "Invalid Request")
+	assert_equal(str(rr), "$15\r\nInvalid Request\r\n")
+
+def test_RedisStatusReply():
+	rr = RedisStatusReply("OK")
+	assert_equal(rr.response_text, "OK")
+	assert_equal(str(rr), "+OK\r\n")
+
+def test_RedisErrorReply():
+	rr = RedisErrorReply("OK")
+	assert_equal(rr.response_text, "OK")
+	assert_equal(str(rr), "-OK\r\n")
