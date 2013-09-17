@@ -1,0 +1,20 @@
+{
+	"test": {
+		"auth_required": true,
+		"auth_method": "simple",
+		"auth_simple_password": "$2a$12$H5G8LCaUxykMUVzk0jUldehrd8OH15t7RxNNzsm9IYnca5FEdeDZG",
+		"rules": [
+			{"command": "set", "key": "test\\-*", "action": "accept"},
+			{"command": "get", "key": "test\\-*", "action": "accept"},
+			{"command": "ping", "action": "accept"},
+			{"command": "echo", "action": "accept"},
+			{"action": "reject"}
+		]
+	},
+	"guest": {
+		"auth_required": false,
+		"rules": [
+			{"action": "reject"}
+		]
+	}
+}
