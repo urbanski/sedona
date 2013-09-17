@@ -26,7 +26,7 @@ from sedonalib.redis import *
 
 #global variables
 config = {}
-APP_VERSION = "0.0.1"
+APP_VERSION = "0.0.2"
 
 
 ###########################
