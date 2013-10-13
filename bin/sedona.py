@@ -19,7 +19,7 @@ from twisted.internet import reactor, ssl
 from twisted.python import log
 
 #bring in the sedona source dir
-sys.path.append('/Users/will/projects/sedona/src')
+sys.path.append('%s/../src' % os.path.dirname(os.path.abspath(__file__)))
 from sedonalib.user import *
 from sedonalib.acl import *
 from sedonalib.redis import *
