@@ -58,7 +58,7 @@ def load_config_file(filepath):
         {'name':'redis-port', 'type':'int'}, 
         {'name':'plaintext-port', 'type':'int'}, 
         {'name':'authfile', 'type':'str'}, 
-        {'name':'default-user', 'type':'str', 'default': 'guest'},
+        {'name':'default-user', 'type':'str', 'default': None},
         {'name':'ssl-support', 'type':'bool', 'default': False},
         {'name':'plaintext-support', 'type':'bool', 'default': True},
         {'name':'require-authentication', 'type':'bool', 'default': False}
@@ -214,8 +214,15 @@ def main():
 
     debug.debug("Found %s users" % len(users), extra={'clientip':'-', 'user':'-'})
 
+    #perform some pre-flight checks
+    #ssl or plaintext support must be enabled
     if (config['plaintext-support'] == False and config['ssl-support'] == False):
         ThrowCritical("You must enable plaintext support or SSL support.")
+
+    #if require-auth is not enabled, must provide user
+    if (config['require-authentication'] == False):
+        if (config['default-user'] == None or config['default-user'] == ""):
+            ThrowCritical("You must specify a default user account if you do not require authentication.")
 
     # Check for SSL support
     if (config['ssl-support'] == True):
@@ -233,7 +240,7 @@ def main():
     if (config['plaintext-support'] == True):
         endpoint = TCP4ServerEndpoint(reactor, config['plaintext-port'])
         endpoint.noisy = False
-        endpoint.listen(RedisFactory())
+        endpoint.listen(RedisFactory(config, users))
         reactor.run()
 
 
