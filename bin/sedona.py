@@ -230,7 +230,7 @@ def main():
             if (os.path.exists(config['ssl-cert-file'])):
                 ssl_factory = Factory()
                 ssl_factory.protocol = Redis2
-                reactor.listenSSL(config['ssl-port'], RedisFactory(), ssl.DefaultOpenSSLContextFactory(config['ssl-key-file'], config['ssl-cert-file']))
+                reactor.listenSSL(config['ssl-port'], RedisFactory(config, users), ssl.DefaultOpenSSLContextFactory(config['ssl-key-file'], config['ssl-cert-file']))
             else:
                 ThrowCritical("The SSL certificate file specified in the config does not exist")
         else:
