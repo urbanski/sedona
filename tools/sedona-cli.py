@@ -1,20 +1,48 @@
 #!/usr/bin/env python
 
 import argparse
+import sys
+from getpass import getpass
 from twisted.internet import ssl, reactor
 from twisted.internet.protocol import ClientFactory, Protocol
 
-class EchoClient(Protocol):
+class RedisClient(Protocol):
+
+    def buildcmd(self, *args):
+        """build a redis command statement"""
+        num_args = len(args)
+        cmd = "*%s\r\n" % num_args
+        for word in enumerate(args):
+            word = word[1]
+            cmd = "%s$%s\r\n%s\r\n" % (cmd,len(word), word)
+        return cmd
+
     def connectionMade(self):
-        print "*1\r\n$4\r\nPING\r\n"
-        self.transport.write("*1\r\n$4\r\nPING\r\n")
+        """called when a connection is made"""
+        #new connection initialized-- do we need to AUTH?
+        if (self.factory.args.username != None):
+            #we need to auth
+            cmd = self.buildcmd("AUTH", self.factory.args.username, self.factory.args.password)
+            self.transport.write(cmd)
+        
+        #now send a ping
+        cmd = self.buildcmd("PING")
+            #print "*1\r\n$4\r\nPING\r\n"
+            #self.transport.write("*1\r\n$4\r\nPING\r\n")
+        self.transport.write(cmd)
 
     def dataReceived(self, data):
-        print "Server said:", data
-        self.transport.loseConnection()
+        """called when data is received"""
+        if data[0:1] == "+":
+            #success
+            print data[1:]
+        #self.transport.loseConnection()
 
-class EchoClientFactory(ClientFactory):
-    protocol = EchoClient
+class RedisClientFactory(ClientFactory):
+    protocol = RedisClient
+
+    def __init__(self, args):
+        self.args = args
 
     def clientConnectionFailed(self, connector, reason):
         print "Connection failed - goodbye!"
@@ -39,8 +67,9 @@ if __name__ == '__main__':
     args = parse_cmd_line()
 
     if (args.password == True):
-        password = raw_input('Password: ')
+        password = getpass('Password: ')
+        args.password = password
 
-    factory = EchoClientFactory()
+    factory = RedisClientFactory(args)
     reactor.connectSSL(args.host, args.port, factory, ssl.ClientContextFactory())
     reactor.run()
