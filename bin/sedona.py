@@ -70,7 +70,7 @@ def load_config_file(filepath):
         {'name': 'debug-log', 'type':'str', 'default': None},
         {'name': 'ssl-cert-file', 'type': 'str', 'default': None},
         {'name': 'ssl-key-file', 'type': 'str', 'default': None},
-        {'name': 'ssl-port', 'type': 'str', 'default': None}
+        {'name': 'ssl-port', 'type': 'int', 'default': None}
     ]
 
     for param_dict in mandatory_params:
